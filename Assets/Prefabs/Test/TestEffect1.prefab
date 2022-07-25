@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6737863817453753638}
   - component: {fileID: 6737863817453753637}
   - component: {fileID: 6737863817453753636}
+  - component: {fileID: 7068239278626204935}
   m_Layer: 0
   m_Name: TestEffect1
   m_TagString: Untagged
@@ -4880,3 +4881,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7068239278626204935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737863817453753635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2670b39a4494669b77ac0627a285cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 5

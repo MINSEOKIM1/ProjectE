@@ -66,7 +66,7 @@ public class PlayerBehavior : MonoBehaviour
     public void OnQ(InputAction.CallbackContext value)
     {
         if (value.started && _expeditionManaging.CoolTimes[playerNum, 0] <= 0 &&
-            _playerDataContainer.skillNums.Count >= 1)
+            _playerDataContainer.skillNums.Count >= 1 && _attackTime == 0)
         {
             _playerSkill.Skill(_playerDataContainer.skillNums[0]);
             _expeditionManaging.CoolTimes[playerNum, 0] = _playerDataContainer.finalCoolTimes[0]; // 쿨타임 적용
@@ -76,7 +76,7 @@ public class PlayerBehavior : MonoBehaviour
     public void OnW(InputAction.CallbackContext value)
     {
         if (value.started && _expeditionManaging.CoolTimes[playerNum, 1] <= 0 &&
-            _playerDataContainer.skillNums.Count >= 2)
+            _playerDataContainer.skillNums.Count >= 2 && _attackTime == 0)
         {
             _playerSkill.Skill(_playerDataContainer.skillNums[1]);
             _expeditionManaging.CoolTimes[playerNum, 1] = _playerDataContainer.finalCoolTimes[1]; // 쿨타임 적용
@@ -86,7 +86,7 @@ public class PlayerBehavior : MonoBehaviour
     public void OnE(InputAction.CallbackContext value)
     {
         if (value.started && _expeditionManaging.CoolTimes[playerNum, 2] <= 0 &&
-            _playerDataContainer.skillNums.Count >= 3)
+            _playerDataContainer.skillNums.Count >= 3 && _attackTime == 0)
         {
             _playerSkill.Skill(_playerDataContainer.skillNums[2]);
             _expeditionManaging.CoolTimes[playerNum, 2] = _playerDataContainer.finalCoolTimes[2]; // 쿨타임 적용
@@ -100,22 +100,16 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
-        
         if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log("Grounded!");
             _animator.SetBool("isJump", false);
         }
     }
     
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
-        
         if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log("Grounded!");
             _animator.SetBool("isJump", false);
         }
     }
