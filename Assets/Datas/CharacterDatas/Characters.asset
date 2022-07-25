@@ -15,7 +15,7 @@ MonoBehaviour:
   characters:
   - {fileID: 6178966470339625878, guid: 845dc9c17df664ee1abd41e8a2185928, type: 3}
   - {fileID: 5577555788931071999, guid: 84d8d267b57274eaf810a9daf2f4ea73, type: 3}
-  - {fileID: 3122948838343732903, guid: 415376289e312498e8089b7bdfbdb7bd, type: 3}
+  - {fileID: 4105362945620786469, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
   playerDatas:
   - {fileID: 11400000, guid: a41236fe8278c44a695ebf3abfb1bbe3, type: 2}
   - {fileID: 11400000, guid: 0ca319ff0f9194d1c94d9d6f0abdd085, type: 2}
