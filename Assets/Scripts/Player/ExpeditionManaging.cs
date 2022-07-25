@@ -87,6 +87,7 @@ public class ExpeditionManaging : MonoBehaviour
             Debug.Log("You pressed " + value.ReadValue<float>());
             currentPlayer.SetActive(true); 
             currentPlayer.transform.position = curPo;
+            currentPlayer.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             
             CurrentPlayerNum = (int)value.ReadValue<float>();
             

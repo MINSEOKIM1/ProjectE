@@ -24,6 +24,8 @@ MonoBehaviour:
   avd: 0
   skillImages:
   - {fileID: 21300000, guid: 5edf5865f415b4c9c970f4c7a3ba4494, type: 3}
-  skillNums: 00000000
+  - {fileID: 21300000, guid: 5edf5865f415b4c9c970f4c7a3ba4494, type: 3}
+  skillNums: 0300000006000000
   skillCoolTimes:
-  - 2
+  - 1
+  - 4

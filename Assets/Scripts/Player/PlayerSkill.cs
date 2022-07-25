@@ -10,6 +10,7 @@ public class PlayerSkill : MonoBehaviour
 
     public GameObject effect0;
     public GameObject effect1;
+    public GameObject effect2;
 
     private void Start()
     {
@@ -38,6 +39,9 @@ public class PlayerSkill : MonoBehaviour
                 break;
             case 5:
                 StartCoroutine(Attack2());
+                break;
+            case 6:
+                StartCoroutine(Attack3());
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -92,5 +96,32 @@ public class PlayerSkill : MonoBehaviour
         var effect = GameObject.Instantiate(effect1, 
                 transform.position + new Vector3(0, 2, 0),
                 Quaternion.identity);
+    }
+
+    public IEnumerator Attack3()
+    {
+        _playerBehavior.OnAttack(1f);
+        _animator.SetTrigger("cast");
+
+        yield return new WaitForSeconds(0.3f);
+
+        Vector3 target;
+        Vector3 hitPos;
+        for (int i = 1; i < 10; i++)
+        {
+            for (int j = -1; j <= 1; j += 2)
+            {
+                target = transform.position + new Vector3(j*i*5, 30, 0);
+                RaycastHit2D hitData = Physics2D.Raycast(target, Vector3.down, Mathf.Infinity, (1 << 6));
+                if (hitData)
+                {
+                    hitPos = hitData.point;
+
+                    var effect = GameObject.Instantiate(effect2, hitPos, Quaternion.identity);
+                }
+            }
+
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

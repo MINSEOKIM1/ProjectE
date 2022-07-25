@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Characters
   m_EditorClassIdentifier: 
   characters:
-  - {fileID: 6178966470339625878, guid: 845dc9c17df664ee1abd41e8a2185928, type: 3}
-  - {fileID: 5577555788931071999, guid: 84d8d267b57274eaf810a9daf2f4ea73, type: 3}
+  - {fileID: 3976124815737370833, guid: 24c3d1af874144f4d8656f50a100c50c, type: 3}
+  - {fileID: 6047861319421030867, guid: 2ffd2a4b53828482492891595bb2ceae, type: 3}
   - {fileID: 4105362945620786469, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
   playerDatas:
   - {fileID: 11400000, guid: a41236fe8278c44a695ebf3abfb1bbe3, type: 2}
