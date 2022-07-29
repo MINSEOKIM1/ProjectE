@@ -30,11 +30,17 @@ public class PlayerDataContainer : MonoBehaviour
     public List<Sprite> skillImages;
     public List<int> skillNums;
     
+    // 원정대 정보 (원정대 공동 버프, 원정대 공유 아이템 등)
+    
+    [SerializeField] private ExpeditionManaging _expeditionManaging;
+    
     private void Start()
     {
         finalCoolTimes = playerData.skillCoolTimes.ToList();
         skillImages = playerData.skillImages.ToList();
-        skillNums = playerData.skillNums.ToList(); 
+        skillNums = playerData.skillNums.ToList();
+
+        _expeditionManaging = transform.parent.GetComponent<ExpeditionManaging>();
     }
 
     private void Update()
@@ -43,6 +49,8 @@ public class PlayerDataContainer : MonoBehaviour
     }
     public void UpdateData()
     {
+        if (_expeditionManaging == null) _expeditionManaging = transform.parent.GetComponent<ExpeditionManaging>();
+        
         if (finalCoolTimes.Count == 0) finalCoolTimes = characterData.playerData.skillCoolTimes.ToList();
         if (skillImages.Count == 0) skillImages = characterData.playerData.skillImages.ToList();
         if (skillNums.Count == 0) skillNums = characterData.playerData.skillNums.ToList(); 
@@ -55,10 +63,11 @@ public class PlayerDataContainer : MonoBehaviour
         speed = characterData.playerData.speed + extraSpeed;
         jumpPower = characterData.playerData.jumpPower + extraJumpPower;
 
-        ad = characterData.playerData.ad + extraAd;
-        ap = characterData.playerData.ap + extraAp;
-        def = characterData.playerData.def + extraDef;
-        avd = characterData.playerData.avd + extraAvd;
+        // 버프 + 아이템 효과 적용
+        ad = characterData.playerData.ad + characterData.GetExtraAd() + _expeditionManaging.extraAd;
+        ap = characterData.playerData.ap + characterData.GetExtraAp() + _expeditionManaging.extraAp;
+        def = characterData.playerData.def + characterData.GetExtraDef() + _expeditionManaging.extraDef;
+        avd = characterData.playerData.avd + characterData.GetExtraAvd() + _expeditionManaging.extraAvd;
 
         for (int i = 0; i < characterData.playerData.skillNums.Count; i++)
         {

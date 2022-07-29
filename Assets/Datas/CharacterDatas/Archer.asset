@@ -18,7 +18,7 @@ MonoBehaviour:
   mp: 70
   speed: 12
   jumpPower: 14
-  ad: 0
+  ad: 2
   ap: 0
   def: 0
   avd: 0

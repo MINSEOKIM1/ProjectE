@@ -45,12 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterInfos: {fileID: 11400000, guid: c6b9e6067f2144f058f5c22d5f5e98ae, type: 2}
-  equipmentInfos: {fileID: 0}
-  expedition:
-  - {fileID: 4105362945620786469, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
-  expeditionData:
-  - playerData: {fileID: 11400000, guid: 9f694fbfb628b423fbfaa7b6ce13b348, type: 2}
-    equipments: []
+  equipmentInfos: {fileID: 11400000, guid: d2f55486aff064bf49cfaf16e1f91640, type: 2}
+  buffInfos: {fileID: 11400000, guid: b5591a8d1872b4539a8963cc2b824d98, type: 2}
+  expedition: []
+  expeditionData: []
 --- !u!1 &8143333035900270877
 GameObject:
   m_ObjectHideFlags: 0

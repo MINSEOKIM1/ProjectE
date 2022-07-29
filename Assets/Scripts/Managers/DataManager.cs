@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    private static int nn;
     public CharacterInfos characterInfos;
     public EquipmentInfos equipmentInfos;
+    public BuffInfos buffInfos;
+    
     public List<GameObject> expedition;
     public List<CharacterData> expeditionData;
 

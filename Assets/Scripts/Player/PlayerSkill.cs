@@ -7,15 +7,25 @@ public class PlayerSkill : MonoBehaviour
 {
     private Animator _animator;
     private PlayerBehavior _playerBehavior;
+    private PlayerDataContainer _playerDataContainer;
+
+    public Vector2 boxOffset, boxSize;
 
     public GameObject effect0;
     public GameObject effect1;
     public GameObject effect2;
 
+    public float optionDamage;
+
+    public ExpeditionManaging ExpeditionManaging;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _playerBehavior = GetComponent<PlayerBehavior>();
+        _playerDataContainer = GetComponent<PlayerDataContainer>();
+        
+        ExpeditionManaging = transform.parent.GetComponent<ExpeditionManaging>();
     }
 
     public void Skill(int n)
@@ -47,6 +57,28 @@ public class PlayerSkill : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
     }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(boxOffset, boxSize);
+    }
+
+
+    private void AttackBoundaryCheck(Vector2 offset, Vector2 boxSize, float damage, Vector2 airborne, float stunTime)
+    {
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(
+            (Vector2)gameObject.transform.position + offset,
+            boxSize, 0);
+
+        foreach (Collider2D item in collider2Ds)
+        {
+            if (item.tag == "Mob")
+            {
+                item.gameObject.GetComponent<TestMob>().TakeHit(damage, airborne, stunTime);
+            }
+        }
+    }
 
     public void Skill0()
     {
@@ -67,7 +99,11 @@ public class PlayerSkill : MonoBehaviour
     {
         _playerBehavior.OnAttack(28 / 60f);
         _animator.SetTrigger("attack");
-        yield break;
+        yield return new WaitForSeconds(20 / 60f);
+        AttackBoundaryCheck(new Vector2(7.4f * transform.localScale.x, 7.4f), new Vector2(10, 7),
+            _playerDataContainer.ad, Vector2.up * 10, 0);
+
+        
     }
     
     public IEnumerator Attack1()
@@ -78,6 +114,7 @@ public class PlayerSkill : MonoBehaviour
         Vector3 pos = transform.position;
         float dir = transform.localScale.x / Mathf.Abs(transform.localScale.x);
         yield return new WaitForSeconds(0.3f);
+        ExpeditionManaging.AddBuff(0);
         for (int i = 0; i < 4; i++)
         {
             var effect = GameObject.Instantiate(effect0, 
@@ -91,8 +128,16 @@ public class PlayerSkill : MonoBehaviour
     {
         _playerBehavior.OnAttack(28 / 60f);
         _animator.SetTrigger("attack");
+        ExpeditionManaging.AddBuff(1);
         
         yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < 4; i++)
+        {
+            AttackBoundaryCheck(new Vector2(0, 2.5f), new Vector2(20, 20),
+                _playerDataContainer.ap * 1.5f, Vector2.up * 14, 3);
+            yield return new WaitForSeconds(0.1f);
+        }
+
         var effect = GameObject.Instantiate(effect1, 
                 transform.position + new Vector3(0, 2, 0),
                 Quaternion.identity);
@@ -107,6 +152,7 @@ public class PlayerSkill : MonoBehaviour
 
         Vector3 target;
         Vector3 hitPos;
+        ExpeditionManaging.AddBuff(2);
         for (int i = 1; i < 10; i++)
         {
             for (int j = -1; j <= 1; j += 2)

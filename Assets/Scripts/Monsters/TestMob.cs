@@ -9,6 +9,11 @@ public class TestMob : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     private float _stunTime;
+
+    public GameObject damageText;
+    public Transform damageText_spawnLocation;
+
+    public GameObject canvas;
     
     void Start()
     {
@@ -36,8 +41,14 @@ public class TestMob : MonoBehaviour
 
     public void TakeHit(float damage, Vector2 airborne, float stunTime)
     {
+        _stunTime = stunTime;
         _animator.SetTrigger("hit");
+        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
         _rigidbody2D.AddForce(airborne, ForceMode2D.Impulse);
+
+        var text = GameObject.Instantiate(damageText, canvas.transform);
+        text.GetComponent<DamageText>().SetDamage(damage, damageText_spawnLocation.position);
+        text.transform.SetParent(canvas.transform);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

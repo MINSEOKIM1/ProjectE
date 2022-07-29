@@ -18,5 +18,10 @@ public class Equipment
         extraAp = equipmentData.extraAp;
         extraDef = equipmentData.extraDef;
         extraAvd = equipmentData.extraAvd;
+        
+        p_extraAd = equipmentData.p_extraAd;
+        p_extraAp = equipmentData.p_extraAp;
+        p_extraDef = equipmentData.p_extraDef;
+        p_extraAvd = equipmentData.p_extraAvd;
     }
 }

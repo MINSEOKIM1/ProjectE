@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,10 +32,33 @@ public class Test_ShowCharacterInfo : MonoBehaviour
         {
             equipmentImages[i].sprite = nullSprite;
         }
+
+        description.text = String.Format("Extra AD : {0}     Extra AP : {1}\n" +
+                                         "Extra Def : {2}    Extra Avd : {3}",
+            GameManager.Instance.DataManager.expeditionData[n].GetExtraAd(),
+            GameManager.Instance.DataManager.expeditionData[n].GetExtraAp(),
+            GameManager.Instance.DataManager.expeditionData[n].GetExtraDef(),
+            GameManager.Instance.DataManager.expeditionData[n].GetExtraAvd());
+
+        /*
+         *  Extra AD : 12	Extra AP : 12
+            Extra Def : 12	Extra Avd : 12
+
+            Extra Speed : 1	Extra JumpPower : 3
+            CoolDown Reduction : 25%
+
+         */
     }
 
     public void AddEquipment(int n)
     {
         GameManager.Instance.DataManager.expeditionData[currentCharacterNum].AddEquipment(n);
+        ShowCharacter(currentCharacterNum);
+    }
+    
+    public void DeleteEquipment(int n)
+    {
+        GameManager.Instance.DataManager.expeditionData[currentCharacterNum].DeleteEquipment();
+        ShowCharacter(currentCharacterNum);
     }
 }

@@ -9,5 +9,6 @@ public class EquipmentData : ScriptableObject
     public string equipmentName;
     public string equipmentDescription;
     
-    public float extraAd, extraAp, extraDef, extraAvd;
+    public float extraAd, extraAp, extraDef, extraAvd; // 합연산
+    public float p_extraAd, p_extraAp, p_extraDef, p_extraAvd; // 곱연산
 }

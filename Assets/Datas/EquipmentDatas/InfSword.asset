@@ -19,3 +19,7 @@ MonoBehaviour:
   extraAp: 10
   extraDef: 1
   extraAvd: -0.1
+  p_extraAd: 5.16
+  p_extraAp: 0
+  p_extraDef: 0
+  p_extraAvd: 0

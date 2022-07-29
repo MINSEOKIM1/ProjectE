@@ -21,6 +21,10 @@ public class ExpeditionManaging : MonoBehaviour
 
     public List<PlayerDataContainer> playerDataContainers;
 
+    public List<Buff> Buffs;
+
+    public float extraAd, extraAp, extraDef, extraAvd;
+    
     public float[,] CoolTimes;
     private void Start()
     {
@@ -53,6 +57,8 @@ public class ExpeditionManaging : MonoBehaviour
         cine.Follow = currentPlayer.transform;
         cine.LookAt = currentPlayer.transform;
 
+        Buffs = new List<Buff>();
+
         UpdateUI();
     }
 
@@ -73,6 +79,16 @@ public class ExpeditionManaging : MonoBehaviour
                 }
             }
         }
+
+        extraAd = 0; extraAp = 0; extraDef = 0; extraAvd = 0;
+        
+        foreach (var i in Buffs)
+        {
+            extraAd += i.Buffdata.extraAd;
+            extraAp += i.Buffdata.extraAp;
+            extraDef += i.Buffdata.extraDef;
+            extraAvd += i.Buffdata.extraAvd;
+        }
     }
 
 
@@ -87,7 +103,7 @@ public class ExpeditionManaging : MonoBehaviour
             Debug.Log("You pressed " + value.ReadValue<float>());
             currentPlayer.SetActive(true); 
             currentPlayer.transform.position = curPo;
-            currentPlayer.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+            // currentPlayer.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             
             CurrentPlayerNum = (int)value.ReadValue<float>();
             
@@ -126,5 +142,18 @@ public class ExpeditionManaging : MonoBehaviour
             infos[i].gameObject.SetActive(true);
             infos[j++].SetPlayer(players[i]);
         }
+    }
+
+    public void AddBuff(int n)
+    {
+        Buff buff = new Buff(GameManager.Instance.DataManager.buffInfos.Buffdatas[n]);
+        Buffs.Add(buff);
+        StartCoroutine(DeleteBuff(buff, buff.Buffdata.lifeTime));
+    }
+
+    private IEnumerator DeleteBuff(Buff buff, float time)
+    {
+        yield return new WaitForSeconds(time);
+        Buffs.Remove(buff);
     }
 }
