@@ -14,7 +14,13 @@ public class DamageText : MonoBehaviour
     private void LateUpdate()
     {
         transform.position = Camera.main.WorldToScreenPoint(_originalPos);
+        _speed = Mathf.Lerp(_speed, 0, Time.deltaTime);
         _originalPos += Vector3.up * (_speed * Time.deltaTime);
+
+        if (_text.alpha > 0)
+        {
+            _text.alpha -= 2 * Time.deltaTime;
+        }
     }
 
     private void Delete()

@@ -7,6 +7,7 @@ public class TestMob : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _sprite;
     private Rigidbody2D _rigidbody2D;
+    private Material _material;
 
     private float _stunTime;
 
@@ -20,6 +21,7 @@ public class TestMob : MonoBehaviour
         _animator = GetComponent<Animator>();
         _sprite = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _material = GetComponent<Material>();
     }
     
     void FixedUpdate()
@@ -28,7 +30,7 @@ public class TestMob : MonoBehaviour
         if (_stunTime > 0)
         {
             _animator.SetBool("isStun", true);
-            _sprite.color = Color.gray;
+            _sprite.color = Color.black;
         }
         else
         {

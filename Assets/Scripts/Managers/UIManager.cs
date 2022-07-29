@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject PauseWindow;
     // For Test
     public void AddCharacterToExpedition(int n)
     {

@@ -11,9 +11,7 @@ public class PlayerSkill : MonoBehaviour
 
     public Vector2 boxOffset, boxSize;
 
-    public GameObject effect0;
-    public GameObject effect1;
-    public GameObject effect2;
+    public GameObject effect;
 
     public float optionDamage;
 
@@ -112,21 +110,19 @@ public class PlayerSkill : MonoBehaviour
         _animator.SetTrigger("attack");
 
         Vector3 pos = transform.position;
-        float dir = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+        float _dir = transform.localScale.x / Mathf.Abs(transform.localScale.x);
         yield return new WaitForSeconds(0.3f);
         ExpeditionManaging.AddBuff(0);
-        for (int i = 0; i < 4; i++)
-        {
-            var effect = GameObject.Instantiate(effect0, 
-                pos + new Vector3((i+1) * 5, dir * 1, 0) * dir,
-                Quaternion.identity);
-            yield return new WaitForSeconds(0.1f);
-        }
+
+        var eff = GameObject.Instantiate(effect, transform.position, Quaternion.identity,  transform);
+        eff.GetComponent<SkillEffect>().dir = (int)_dir;
+        eff.GetComponent<SkillEffect>().damage = _playerDataContainer.ad * 0.7f + _playerDataContainer.ap * 1.2f;
+        StartCoroutine(eff.GetComponent<SkillEffect>().Attack1());
     }
     
     public IEnumerator Attack2()
     {
-        _playerBehavior.OnAttack(28 / 60f);
+        _playerBehavior.OnAttack(59 / 60f);
         _animator.SetTrigger("attack");
         ExpeditionManaging.AddBuff(1);
         
@@ -135,39 +131,25 @@ public class PlayerSkill : MonoBehaviour
         {
             AttackBoundaryCheck(new Vector2(0, 2.5f), new Vector2(20, 20),
                 _playerDataContainer.ap * 1.5f, Vector2.up * 14, 3);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
-        var effect = GameObject.Instantiate(effect1, 
+        /*var effect = GameObject.Instantiate(effect1, 
                 transform.position + new Vector3(0, 2, 0),
-                Quaternion.identity);
+                Quaternion.identity);*/
     }
 
     public IEnumerator Attack3()
     {
-        _playerBehavior.OnAttack(1f);
+        _playerBehavior.OnAttack(3f);
         _animator.SetTrigger("cast");
 
         yield return new WaitForSeconds(0.3f);
-
-        Vector3 target;
-        Vector3 hitPos;
+        
         ExpeditionManaging.AddBuff(2);
-        for (int i = 1; i < 10; i++)
-        {
-            for (int j = -1; j <= 1; j += 2)
-            {
-                target = transform.position + new Vector3(j*i*5, 30, 0);
-                RaycastHit2D hitData = Physics2D.Raycast(target, Vector3.down, Mathf.Infinity, (1 << 6));
-                if (hitData)
-                {
-                    hitPos = hitData.point;
-
-                    var effect = GameObject.Instantiate(effect2, hitPos, Quaternion.identity);
-                }
-            }
-
-            yield return new WaitForSeconds(0.2f);
-        }
+        var eff = GameObject.Instantiate(effect, transform.position, Quaternion.identity);
+        eff.GetComponent<SkillEffect>().damage = _playerDataContainer.ap * 1.5f;
+        eff.GetComponent<SkillEffect>().Skill(1);
+        
     }
 }

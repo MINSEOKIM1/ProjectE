@@ -279,6 +279,34 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""DungeonUI"",
+            ""id"": ""f381d067-ab33-40c1-a95b-deb5af0b42af"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6795968-eb7a-44ff-8985-acb559e9aec0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""210a6031-c2a2-488b-bc28-62803c82f1e7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -305,6 +333,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // Expedition
         m_Expedition = asset.FindActionMap("Expedition", throwIfNotFound: true);
         m_Expedition_ChangeCharacter = m_Expedition.FindAction("ChangeCharacter", throwIfNotFound: true);
+        // DungeonUI
+        m_DungeonUI = asset.FindActionMap("DungeonUI", throwIfNotFound: true);
+        m_DungeonUI_Pause = m_DungeonUI.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -458,6 +489,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public ExpeditionActions @Expedition => new ExpeditionActions(this);
+
+    // DungeonUI
+    private readonly InputActionMap m_DungeonUI;
+    private IDungeonUIActions m_DungeonUIActionsCallbackInterface;
+    private readonly InputAction m_DungeonUI_Pause;
+    public struct DungeonUIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public DungeonUIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_DungeonUI_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_DungeonUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DungeonUIActions set) { return set.Get(); }
+        public void SetCallbacks(IDungeonUIActions instance)
+        {
+            if (m_Wrapper.m_DungeonUIActionsCallbackInterface != null)
+            {
+                @Pause.started -= m_Wrapper.m_DungeonUIActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_DungeonUIActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_DungeonUIActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_DungeonUIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public DungeonUIActions @DungeonUI => new DungeonUIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -478,5 +542,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IExpeditionActions
     {
         void OnChangeCharacter(InputAction.CallbackContext context);
+    }
+    public interface IDungeonUIActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

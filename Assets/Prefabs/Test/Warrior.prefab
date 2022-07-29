@@ -215,6 +215,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 557f47b64f0014eba85ee494656fdd98, type: 3}
   - {fileID: 21300000, guid: 5edf5865f415b4c9c970f4c7a3ba4494, type: 3}
   skillNums: 0000000001000000
+  _expeditionManaging: {fileID: 0}
 --- !u!114 &2044908137153883794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,8 +228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d1b95b85e4f418f8c7aeec20e2aadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect0: {fileID: 2221973774845519017, guid: c912366f3ba9d4f04a8cfcdf1a93d11d, type: 3}
-  effect1: {fileID: 6737863817453753635, guid: 6192b879ce1094c45a3db62d19571047, type: 3}
+  boxOffset: {x: 0, y: 0}
+  boxSize: {x: 0, y: 0}
+  effect: {fileID: 6011957944498951728, guid: 75267d2ff7c3a4712ad00c2e5ba8734c, type: 3}
+  optionDamage: 0
+  ExpeditionManaging: {fileID: 0}
 --- !u!114 &5831462815797090506
 MonoBehaviour:
   m_ObjectHideFlags: 0

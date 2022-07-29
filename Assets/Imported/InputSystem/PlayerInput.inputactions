@@ -257,6 +257,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DungeonUI",
+            "id": "f381d067-ab33-40c1-a95b-deb5af0b42af",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "d6795968-eb7a-44ff-8985-acb559e9aec0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "210a6031-c2a2-488b-bc28-62803c82f1e7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -98,11 +98,12 @@ public class ExpeditionManaging : MonoBehaviour
         {
             Vector3 curPo = currentPlayer.transform.position;
             
-            currentPlayer.SetActive(false); 
+            // currentPlayer.SetActive(false); 
             currentPlayer = players[(int)value.ReadValue<float>() - 1]; 
             Debug.Log("You pressed " + value.ReadValue<float>());
             currentPlayer.SetActive(true); 
             currentPlayer.transform.position = curPo;
+            StartCoroutine(currentPlayer.GetComponent<PlayerBehavior>().AfterTag());
             // currentPlayer.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             
             CurrentPlayerNum = (int)value.ReadValue<float>();
